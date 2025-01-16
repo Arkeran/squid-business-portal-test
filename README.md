@@ -1,6 +1,6 @@
-downloadCSV# How to run
+# How to run
 
-Run `npm i`
+Run `npm i`  
 Run `npm start`
 
 ## Main TODOs / What would be my next steps
