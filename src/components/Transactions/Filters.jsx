@@ -4,8 +4,7 @@ import { DateRangePicker } from "@adobe/react-spectrum";
 import { DashboardContext } from "../../App";
 
 function Filters({ filters, setFilters, loadingTransactions }) {
-  const { loadingBusinessData, errorBusinessData } =
-    useContext(DashboardContext);
+  const { loadingBusiness, errorBusiness } = useContext(DashboardContext);
 
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +25,7 @@ function Filters({ filters, setFilters, loadingTransactions }) {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loadingBusinessData || errorBusinessData) return null;
+  if (loadingBusiness || errorBusiness) return null;
 
   function changeCustomersFilter(e) {
     const newCustomerArray = e.map((customer) => customer.label);
@@ -56,7 +55,7 @@ function Filters({ filters, setFilters, loadingTransactions }) {
   // TODO: (Lack of time) Change the css and the components for the filters.
   //      The multiselect need to be changed when many options are selected
   //      The Date picker is not fully aligned, error messages are moving the whole UI.
-  //      Would be preferable to make a custom component to control the UI and behaviour precisely.
+  //      Would be preferable to make a custom component to control the UI and behavior precisely.
 
   return (
     <div className="flex flex-col md:flex-row md:items-end justify-end space-x-4">

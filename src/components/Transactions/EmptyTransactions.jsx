@@ -3,7 +3,7 @@ function EmptyTransaction() {
     <tr>
       <td colSpan={4}>
         <div className="text-center content-center w-full h-14 text-gray-700 bg-white">
-          No transactions found
+          No transaction found
         </div>
       </td>
     </tr>

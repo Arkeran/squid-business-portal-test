@@ -4,15 +4,16 @@ import SkeletonLoader from "../Loaders/SkeletonLoader";
 import EmptyTransaction from "./EmptyTransactions";
 import Filters from "./Filters";
 import ErrorTransaction from "./ErrorTransaction";
+import DownloadCSV from "../Utils/downloadCSV";
 
 function RecentTransactions() {
-  const { loadingBusinessData, errorBusinessData } =
-    useContext(DashboardContext);
+  const { loadingBusiness, errorBusinessData } = useContext(DashboardContext);
 
   const [transactions, setTransactions] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [filters, setFilters] = useState({});
+  const [downloadCSVNotification, setDownloadCSVNotification] = useState();
 
   const tableHead = [
     { label: "Date", class: "w-28" },
@@ -20,6 +21,16 @@ function RecentTransactions() {
     { label: "Description", class: "" },
     { label: "Points", class: "w-28" },
   ];
+
+  const downloadCSV = () => {
+    setDownloadCSVNotification("downloading...");
+    try {
+      DownloadCSV({ data: transactions, fileName: "recent_transactions" });
+      setDownloadCSVNotification(null);
+    } catch (error) {
+      setDownloadCSVNotification("download failed");
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -41,7 +52,7 @@ function RecentTransactions() {
       .finally(() => setLoading(false));
   }, [filters]);
 
-  if (loadingBusinessData || errorBusinessData) return null;
+  if (loadingBusiness || errorBusinessData) return null;
 
   return (
     <>
@@ -115,6 +126,17 @@ function RecentTransactions() {
           </tbody>
         </table>
       </div>
+      {!loading && transactions && transactions.length > 0 && (
+        <div className="flex flex-row space-x-3 items-center text-left mx-3 py-2">
+          <button
+            className="text-gray-700 bg-white outline outline-1 outline-gray-300 rounded-lg p-2"
+            onClick={() => downloadCSV()}
+          >
+            Download CSV
+          </button>
+          {downloadCSVNotification && <p>{downloadCSVNotification}</p>}
+        </div>
+      )}
     </>
   );
 }

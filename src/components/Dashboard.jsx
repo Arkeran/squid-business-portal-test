@@ -9,29 +9,29 @@ import Graphics from "./Graphics";
 
 function Dashboard() {
   const [business, setBusiness] = useState();
-  const [loadingBusinessData, setLoadingBusinessData] = useState(true);
+  const [loadingBusiness, setLoadingBusiness] = useState(true);
   const [error, setError] = useState(false);
   const [filters, setFilters] = useState();
 
   useEffect(() => {
-    setLoadingBusinessData(true);
+    setLoadingBusiness(true);
     fetch("/business")
       .then((response) => response.json())
       .then((data) => {
         setBusiness(data);
       })
       .catch((error) => {
-        setLoadingBusinessData(false);
+        setLoadingBusiness(false);
         setError(error);
       })
-      .finally(() => setLoadingBusinessData(false));
+      .finally(() => setLoadingBusiness(false));
   }, []);
 
   return (
     <DashboardContext.Provider
       value={{
         business,
-        loadingBusinessData,
+        loadingBusiness,
         filters,
         setFilters,
       }}

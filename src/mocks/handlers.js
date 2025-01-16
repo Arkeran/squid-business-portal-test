@@ -1,8 +1,9 @@
 import { http, delay, HttpResponse } from 'msw'
+import addDays from '../components/Utils/addDays'
  
 export const handlers = [
   http.get('/business', async () => {
-    await delay(1000)
+    await delay(500)
     return HttpResponse.json({
         businessName: "Yellow Door Coffee",
         totalCustomers: 120,
@@ -91,10 +92,10 @@ export const handlers = [
         ]
       })
   }),
-  http.get('/pointsPerCategories', async () => {
+  http.get('/categoryDistribution', async () => {
     await delay(500)
     return HttpResponse.json({
-        pointsPerCategories: [
+      categoryDistribution: [
           { points: 244, label: "Coffee Purchase" },
           { points: 155, label: "Dinner Special" },
           { points: 313, label: "Bakery item" },
@@ -105,15 +106,17 @@ export const handlers = [
   }),
   http.get('/pointIssued', async () => {
     await delay(500)
+    const today = new Date();
+    const locale = 'en-IE';
     return HttpResponse.json({
         pointIssued: [
-          { points: 120, day: "Wed" },
-          { points: 125, day: "Thu" },
-          { points: 195, day: "Fri" },
-          { points: 207, day: "Sat" },
-          { points: 305, day: "Sun" },
-          { points: 327, day: "Mon" },
-          { points: 385, day: "Tue" },
+          { points: 120, day: addDays(today, -6).toLocaleDateString(locale, { weekday: 'short' }) },
+          { points: 125, day: addDays(today, -5).toLocaleDateString(locale, { weekday: 'short' }) },
+          { points: 195, day: addDays(today, -4).toLocaleDateString(locale, { weekday: 'short' }) },
+          { points: 207, day: addDays(today, -3).toLocaleDateString(locale, { weekday: 'short' }) },
+          { points: 305, day: addDays(today, -2).toLocaleDateString(locale, { weekday: 'short' }) },
+          { points: 327, day: addDays(today, -1).toLocaleDateString(locale, { weekday: 'short' }) },
+          { points: 385, day: today.toLocaleDateString(locale, { weekday: 'short' }) },
         ]
       })
   })

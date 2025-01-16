@@ -5,7 +5,6 @@ import { createContext } from 'react'
 import { Provider, lightTheme } from '@adobe/react-spectrum'
 
 export const DashboardContext = createContext();
-export const TransactionContext = createContext();
 
 function App() {
   return (

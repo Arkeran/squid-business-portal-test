@@ -3,7 +3,7 @@ import { DashboardContext } from "../App";
 import LoadingSpinner from "./Loaders/LoadingSpinner";
 
 function Header() {
-  const { business, loadingBusinessData, errorBusinessData } =
+  const { business, loadingBusiness, errorBusiness } =
     useContext(DashboardContext);
 
   return (
@@ -12,7 +12,7 @@ function Header() {
         <div>
           <img
             src={
-              loadingBusinessData && business?.logoUrl
+              loadingBusiness && business?.logoUrl
                 ? business?.logoUrl
                 : "./logo-placeholder-image.png"
             }
@@ -23,9 +23,9 @@ function Header() {
         <div className="text-left space-y-0">
           <h3 className="font-bold text-red-400 -mb-2">Welcome</h3>
           <h3 className="">
-            {loadingBusinessData ? (
+            {loadingBusiness ? (
               <LoadingSpinner />
-            ) : errorBusinessData ? (
+            ) : errorBusiness ? (
               ""
             ) : (
               business?.businessName
